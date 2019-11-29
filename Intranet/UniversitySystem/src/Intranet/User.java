@@ -11,6 +11,16 @@ public abstract class User {
 	private String email;
 	private String ID;
 	private Date birthday;
+	
+	public User(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.gender = gender;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.birthday = birthday;
+	}
 	public String getUsername() {
 		return username;
 	}

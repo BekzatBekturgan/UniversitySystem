@@ -5,19 +5,56 @@ import java.io.*;
 public class Admin {
 	private String username;
 	private String password;
+	private Vector<User> vectorOfUsers = new Vector<User>(); // пробная версия потом поменяю
 	private static final String adminPath = "C:\\Users\\Bekzat Bekturgan\\Desktop\\Intranet\\UniversitySystem\\adminPath.txt"; // логин, пароль для аккаунта админ
 	private static final String pathLogFiles = "C:\\Users\\Bekzat Bekturgan\\Desktop\\Intranet\\UniversitySystem\\logFiles.txt"; // путь к log files
-	public void addUsers() {
-		
+	
+	// getter of vectorOfUsers
+	public Vector<User> getVectorOfUsers(){
+		return vectorOfUsers;
 	}
-	public void removeUsers() {
-		
+	// main methods of admin
+	// потом может придумаю как сообщить админу о том что такой user уже есть
+	public void addUsers(User user) {
+		boolean test = false;
+		for(int i = 0; i < getVectorOfUsers().size(); i++) {
+			if(getVectorOfUsers().get(i).equals(user)) {
+				test = true;
+				return;
+			}
+		}
+		if(!test) {
+			getVectorOfUsers().add(user);
+		}
 	}
-	public void setInfoAboutUsers() {
-		
+	// думаю готово, но правильно ли vectorOfUsers делать приватным и обращаться к нему через getter
+	public void removeUsers(String id) {
+		for(int i = 0; i < getVectorOfUsers().size(); i++) {
+			if(getVectorOfUsers().get(i).getID().equals(id)){
+				getVectorOfUsers().remove(i);
+				break;
+			}
+		}
 	}
-	public String seeLogFiles() {
-		return 
+	// подумать надо какую информацию надо поменять
+	// если все то надо каждому прописывать
+	public void setInfoAboutUsers(User user) {
+		for(int i = 0; i < getVectorOfUsers().size(); i++) {
+			if(getVectorOfUsers().get(i).equals(user)) {
+				//getVectorOfUsers().get(i).set
+			}
+		}
+	}
+	// ПРОСМОТР ЛОГ ФАЙЛОВ ВРОДЕ ГОТОВО, НО НАДО ПРОВЕРИТЬ ЧЕРЕЗ ТЕСТЫ
+	public ArrayList<String> seeLogFiles() throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(pathLogFiles));
+		ArrayList<String> logFiles = new ArrayList<String>();
+		String readerLogFiles;
+		while((readerLogFiles = br.readLine())!=null){
+			logFiles.add(readerLogFiles);
+		}
+		br.close();
+		return logFiles;
 	}
 	private String[] readFromAdminPath() throws Exception{
 		BufferedReader br = new BufferedReader(new FileReader(adminPath));
@@ -28,6 +65,7 @@ public class Admin {
 			adminsData[i] = adderToStringArray;
 			i++;
 		}
+		br.close();
 		return adminsData;
 	}
 	// check the username and password that given by console 
@@ -36,17 +74,14 @@ public class Admin {
 		this.username = getAdminsData[0];
 		this.password = getAdminsData[1];
 		
-		if(this.username.equals(getHash(username)) && this.password.equals(getHash(username))) return true;
+		if(this.username.equals(getHash(username)) && this.password.equals(getHash(password))) return true;
 		return false;
 		
 		
 	}
 	// надо потом реализацию придумать 
 	private String getHash(String hashing) {
-		String result;
-		/*
-		 какой то алгоритм для пароля и логина чтобы зашифровать
-		 */
+		String result = this.username;
 		return result;
 	}
 	public String getUsername() {
