@@ -13,13 +13,12 @@ public class Controller {
 	private static final Scanner sc = new Scanner(System.in);
 	
 	//Start of the system
-	public void begin() throws Exception {
+	public void begin() throws Throwable {
+		Database.start();
 		// process of choosing mode for system
 		System.out.println("Choose one of two:" + '\n' + "1.Enter like USER" + '\n' + "2.Enter like ADMIN" + '\n' + "Please, write 1 or 2");
 		
 		int modeForSystem = sc.nextInt();
-		
-		// потом можно будет через try catch исправить
 		if(modeForSystem==1 || modeForSystem==2) {
 			System.out.println("Enter your username and password (2 lines)");
 			String username = sc.nextLine();
@@ -32,11 +31,11 @@ public class Controller {
 				enterLikeAdmin(username, password);
 				break;
 			}
-		}
+		}	
 	}
+	
 	private static void enterLikeAdmin(String username, String password) throws Exception {
 		admin = new Admin();
-		int counterOfEnterAttempts = 0;
 		while(!admin.checkUsernamePassword(username, password)) {
 			System.out.println("Wrong username or password, please, try again");
 			String usernameForMistake = sc.nextLine();
@@ -52,7 +51,7 @@ public class Controller {
 				System.out.println("5. Exit");
 				System.out.println("Please, choose 1, 2, 3, 4, 5");
 				selecter = sc.nextInt();
-				switch(selecter) {
+				switch(selecter) {		
 					case 1:	int selecterMode;
 							while(selecterMode!=6) {
 								System.out.println("Choose one of the five");
@@ -64,8 +63,7 @@ public class Controller {
 								System.out.println("6. Exit");
 								selecterMode = sc.nextInt();
 								switch(selecterMode) {
-									case 1: user = new Student("Bekzat", "Bekturgan", Gender.MALE, "87475225033", "bbekturgan0@gmail.com", new Date());
-											admin.addUsers(user);
+									case 1: 
 											break;
 									case 2: teacher = new Teacher();
 											admin.addUsers(user);
@@ -110,4 +108,5 @@ public class Controller {
 	private static void enterLikeUser(String username, String password) {
 		
 	}
+	
 }

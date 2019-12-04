@@ -1,85 +1,152 @@
 package Intranet;
 import java.util.*;
-import java.io.*;
 
 public class Admin {
 	private String username;
 	private String password;
-	private Vector<User> vectorOfUsers = new Vector<User>(); // пробная версия потом поменяю
 	private static final String adminPath = "C:\\Users\\Bekzat Bekturgan\\Desktop\\Intranet\\UniversitySystem\\adminPath.txt"; // логин, пароль для аккаунта админ
 	private static final String pathLogFiles = "C:\\Users\\Bekzat Bekturgan\\Desktop\\Intranet\\UniversitySystem\\logFiles.txt"; // путь к log files
 	
-	// getter of vectorOfUsers
-	public Vector<User> getVectorOfUsers(){
-		return vectorOfUsers;
-	}
+	
 	// main methods of admin
-	// потом может придумаю как сообщить админу о том что такой user уже есть
-	public void addUsers(User user) {
-		boolean test = false;
-		for(int i = 0; i < getVectorOfUsers().size(); i++) {
-			if(getVectorOfUsers().get(i).equals(user)) {
-				test = true;
-				return;
+	// add users DONE********************************
+	public boolean addUsers(User user, String type) {
+		if(type.equals("student")) {
+			Student student = (Student)user;
+			if(!Database.isUsernameExist(student.getUsername())) {
+				Database.vectorOfStudent.add(student);
+				return true;
 			}
 		}
-		if(!test) {
-			getVectorOfUsers().add(user);
-		}
-	}
-	// думаю готово, но правильно ли vectorOfUsers делать приватным и обращаться к нему через getter
-	public void removeUsers(String id) {
-		for(int i = 0; i < getVectorOfUsers().size(); i++) {
-			if(getVectorOfUsers().get(i).getID().equals(id)){
-				getVectorOfUsers().remove(i);
-				break;
+		else if(type.equals("teacher")) {
+			Teacher teacher = (Teacher)user;
+			if(!Database.isUsernameExist(teacher.getUsername())) {
+				Database.vectorOfTeacher.add(teacher);
+				return true;
 			}
 		}
-	}
-	// подумать надо какую информацию надо поменять
-	// если все то надо каждому прописывать
-	public void setInfoAboutUsers(User user) {
-		for(int i = 0; i < getVectorOfUsers().size(); i++) {
-			if(getVectorOfUsers().get(i).equals(user)) {
-				//getVectorOfUsers().get(i).set
+		else if(type.equals("ormanager")) {
+			ORManager ormanager = (ORManager)user;
+			if(!Database.isUsernameExist(ormanager.getUsername())) {
+				Database.vectorOfOrManager.add(ormanager);
+				return true;
 			}
 		}
-	}
-	// ПРОСМОТР ЛОГ ФАЙЛОВ ВРОДЕ ГОТОВО, НО НАДО ПРОВЕРИТЬ ЧЕРЕЗ ТЕСТЫ
-	public ArrayList<String> seeLogFiles() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(pathLogFiles));
-		ArrayList<String> logFiles = new ArrayList<String>();
-		String readerLogFiles;
-		while((readerLogFiles = br.readLine())!=null){
-			logFiles.add(readerLogFiles);
+		else if(type.equals("departmentmanager")) {
+			DepartmentManager departmentManager = (DepartmentManager)user;
+			if(!Database.isUsernameExist(departmentManager.getUsername())) {
+				Database.vectorOfDepartmentManager.add(departmentManager);
+				return true;
+			}
 		}
-		br.close();
-		return logFiles;
-	}
-	private String[] readFromAdminPath() throws Exception{
-		BufferedReader br = new BufferedReader(new FileReader(adminPath));
-		String[] adminsData = new String[2]; // будет хранить пароль и логин который получить с файла
-		String adderToStringArray;
-		int i = 0; // индекс по массиву
-		while((adderToStringArray = br.readLine())!=null) {
-			adminsData[i] = adderToStringArray;
-			i++;
+		else if(type.equals("executor")) {
+			Executor executor = (Executor)user;
+			if(!Database.isUsernameExist(executor.getUsername())) {
+				Database.vectorOfExecutor.add(executor);
+				return true;
+			}
 		}
-		br.close();
-		return adminsData;
+		return false;
 	}
-	// check the username and password that given by console 
-	public boolean checkUsernamePassword(String username, String password) throws Exception{
-		String[] getAdminsData = readFromAdminPath();
-		this.username = getAdminsData[0];
-		this.password = getAdminsData[1];
+	// remove User DONE**************
+	public boolean removeUsers(User user, String type) {
+		if(type.equals("student")) {
+			Student student = (Student)user;
+			if(Database.isUsernameExist(student.getUsername())) {
+				Database.vectorOfStudent.remove(student);
+				return true;
+			}
+		}
+		else if(type.equals("teacher")) {
+			Teacher teacher = (Teacher)user;
+			if(Database.isUsernameExist(teacher.getUsername())) {
+				Database.vectorOfTeacher.remove(teacher);
+				return true;
+			}
+		}
+		else if(type.equals("ormanager")) {
+			ORManager ormanager = (ORManager)user;
+			if(Database.isUsernameExist(ormanager.getUsername())) {
+				Database.vectorOfOrManager.remove(ormanager);
+				return true;
+			}
+		}
+		else if(type.equals("departmentmanager")) {
+			DepartmentManager departmentManager = (DepartmentManager)user;
+			if(Database.isUsernameExist(departmentManager.getUsername())) {
+				Database.vectorOfDepartmentManager.remove(departmentManager);
+				return true;
+			}
+		}
+		else if(type.equals("executor")) {
+			Executor executor = (Executor)user;
+			if(Database.isUsernameExist(executor.getUsername())) {
+				Database.vectorOfExecutor.remove(executor);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	// TO DO******************
+	/*public boolean setUsers(User user, String type) {
+		if(type.equals("student")) {
+			Student student = (Student)user;
+			if(Database.isUsernameExist(student.getUsername())) {
+				Database.vectorOfStudent
+				return true;
+			}
+		}
+		else if(type.equals("teacher")) {
+			Teacher teacher = (Teacher)user;
+			if(Database.isUsernameExist(teacher.getUsername())) {
+				Database.vectorOfTeacher.remove(teacher);
+				return true;
+			}
+		}
+		else if(type.equals("ormanager")) {
+			ORManager ormanager = (ORManager)user;
+			if(Database.isUsernameExist(ormanager.getUsername())) {
+				Database.vectorOfOrManager.remove(ormanager);
+				return true;
+			}
+		}
+		else if(type.equals("departmentmanager")) {
+			DepartmentManager departmentManager = (DepartmentManager)user;
+			if(Database.isUsernameExist(departmentManager.getUsername())) {
+				Database.vectorOfDepartmentManager.remove(departmentManager);
+				return true;
+			}
+		}
+		else if(type.equals("executor")) {
+			Executor executor = (Executor)user;
+			if(Database.isUsernameExist(executor.getUsername())) {
+				Database.vectorOfExecutor.remove(executor);
+				return true;
+			}
+		}
+		return false;
+	}
+	*/
+	// DONE**************
+	public ArrayList<String> seeLogFiles(){
+		return FileOperation.BufferedReader(pathLogFiles);
+	}
+	
+	
+	// check username and password which given from console with single username and password
+	// DONE****************
+	public boolean checkAdminData(String username, String password){
+		ArrayList<String> adminData = FileOperation.BufferedReader(adminPath);
+		this.username = adminData.get(0);
+		this.password =	adminData.get(1);
 		
 		if(this.username.equals(getHash(username)) && this.password.equals(getHash(password))) return true;
 		return false;
-		
-		
 	}
-	// надо потом реализацию придумать 
+	
+	
+	// надо потом реализацию придумать
 	private String getHash(String hashing) {
 		String result = this.username;
 		return result;
@@ -91,8 +158,18 @@ public class Admin {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -115,6 +192,7 @@ public class Admin {
 			return false;
 		return true;
 	}
+	
 	
 	
 	
