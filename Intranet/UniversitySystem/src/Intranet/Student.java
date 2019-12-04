@@ -10,14 +10,15 @@ public class Student extends User{
 	public ArrayList<Course> currentCourses = new ArrayList<Course>();
 	public ArrayList<Course> expectedCourses = new ArrayList<Course>();
 	
-	public Student(String username, String password, String name, String surname, Gender gender, String phoneNumber,
-			String email, String iD, Date birthday, int yearOfStudy, int entranceYear, Faculty facultyOfStudent) {
-		super(username, password, name, surname, gender, phoneNumber, email, iD, birthday);
+	
+	
+	public Student(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday,
+			int yearOfStudy, int entranceYear, Faculty facultyOfStudent) {
+		super(name, surname, gender, phoneNumber, email, birthday);
 		this.yearOfStudy = yearOfStudy;
 		this.entranceYear = entranceYear;
 		this.facultyOfStudent = facultyOfStudent;
 	}
-	
 	public boolean registerForCourse() {
 		
 	}

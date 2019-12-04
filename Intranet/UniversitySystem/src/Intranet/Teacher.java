@@ -4,12 +4,12 @@ public class Teacher extends Employee{
 	
 	private ArrayList<Course> teacherCourses = new ArrayList<Course>();
 	
-	public Teacher(String username, String password, String name, String surname, Gender gender, String phoneNumber,
-			String email, String iD, Date birthday) {
-		super(username, password, name, surname, gender, phoneNumber, email, iD, birthday);
+	public Teacher(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday) {
+		super(name, surname, gender, phoneNumber, email, birthday);
+		// TODO Auto-generated constructor stub
 	}
-	
-	
+
+
 	public ArrayList<Course> getTeacherCourses() {
 		return teacherCourses;
 	}

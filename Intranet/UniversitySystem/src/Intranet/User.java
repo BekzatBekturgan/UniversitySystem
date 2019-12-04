@@ -11,19 +11,21 @@ public abstract class User {
 	private String email;
 	private String ID;
 	private Date birthday;
-	
-	public User(String username, String password, String name, String surname, Gender gender, String phoneNumber,
-			String email, String iD, Date birthday) {
+	private static int cnt;
+	{
+		cnt++;
+	}
+	public User(String name, String surname, Gender gender, String phoneNumber,
+			String email, Date birthday) {
 		super();
-		this.username = username;
-		this.password = password;
 		this.name = name;
 		this.surname = surname;
 		this.gender = gender;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		ID = iD;
 		this.birthday = birthday;
+		this.username = giveUsername();
+		this.password = "kbtu111";
 	}
 	public String getUsername() {
 		return username;
@@ -84,6 +86,9 @@ public abstract class User {
 		return "User [username=" + username + ", password=" + password + ", name=" + name + ", surname=" + surname
 				+ ", gender=" + gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", ID=" + ID
 				+ ", birthday=" + birthday + "]";
+	}
+	private static String giveUsername() {
+		return "username_" + cnt;
 	}
 	
 }

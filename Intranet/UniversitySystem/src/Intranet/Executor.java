@@ -9,12 +9,13 @@ public class Executor extends Employee{
 	private ArrayList<Orders> acceptedOrders;
 	private ArrayList<Orders> rejectedOrders;
 	private ArrayList<Orders> doneOrders;
-	public Executor(String username, String password, String name, String surname, Gender gender, String phoneNumber,
-			String email, String iD, Date birthday) {
-		super(username, password, name, surname, gender, phoneNumber, email, iD, birthday);
+	
+	
+	
+	public Executor(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday) {
+		super(name, surname, gender, phoneNumber, email, birthday);
 		this.rate = 0;
 	}
-	
 	// get new orders from the employee
 	public boolean getNewOrders() {
 		if(!super.getOrders().isEmpty()) return false;

@@ -10,7 +10,7 @@ public class Admin {
 	
 	// main methods of admin
 	// add users DONE********************************
-	public boolean addUsers(User user, String type) {
+	public boolean addUsers(User user, String type){
 		if(type.equals("student")) {
 			Student student = (Student)user;
 			if(!Database.isUsernameExist(student.getUsername())) {
@@ -128,7 +128,7 @@ public class Admin {
 		return false;
 	}
 	*/
-	// DONE**************
+	// DONE************** // works 100%
 	public ArrayList<String> seeLogFiles(){
 		return FileOperation.BufferedReader(pathLogFiles);
 	}
@@ -148,7 +148,7 @@ public class Admin {
 	
 	// надо потом реализацию придумать
 	private String getHash(String hashing) {
-		String result = this.username;
+		String result = hashing;
 		return result;
 	}
 	public String getUsername() {

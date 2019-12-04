@@ -7,11 +7,11 @@ import java.util.Vector;
 public abstract class Employee extends User implements SearchStudents{
 	private ArrayList<Orders> orders = new ArrayList<Orders>();
 	
-	public Employee(String username, String password, String name, String surname, Gender gender, String phoneNumber,
-			String email, String iD, Date birthday) {
-		super(username, password, name, surname, gender, phoneNumber, email, iD, birthday);
+	public Employee(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday) {
+		super(name, surname, gender, phoneNumber, email, birthday);
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	public ArrayList<Orders> getOrders() {
 		return orders;
 	}

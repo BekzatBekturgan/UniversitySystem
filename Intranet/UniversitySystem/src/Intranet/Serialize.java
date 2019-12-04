@@ -13,7 +13,7 @@ public abstract class Serialize {
 		return stream;
 	}
 	public static Vector<?> deserialize(byte[] stream) {
-		Vector<?> ans;
+		Vector<?> ans = null;
 		try {
 			ByteArrayInputStream bais = new ByteArrayInputStream(stream);
 			ObjectInputStream ois = new ObjectInputStream(bais);
