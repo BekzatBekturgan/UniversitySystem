@@ -41,18 +41,93 @@ public abstract class FileOperation {
 			return false;
 		}
 	}
-	public static Vector<?> Reader(String path) throws ClassNotFoundException {
-		Vector<?> ans = null;
+	public static Vector<Student> studentReader(String path) throws ClassNotFoundException, NullPointerException{
+		Vector<Student> student = null;
 		try {
 			FileInputStream file = new FileInputStream(path);
 			ObjectInputStream in = new ObjectInputStream(file);
-			ans = (Vector<?>) in.readObject();
+			student = (Vector<Student>) in.readObject();
 			in.close();
 			file.close();
 		}
 		catch(IOException ex) {
 			
 		}
-		return ans;
+		return student;
 	}
+	
+	public static Vector<Teacher> teacherReader(String path) throws ClassNotFoundException, NullPointerException{
+		Vector<Teacher> teacher = null;
+		try {
+			FileInputStream file = new FileInputStream(path);
+			ObjectInputStream in = new ObjectInputStream(file);
+			teacher = (Vector<Teacher>) in.readObject();
+			in.close();
+			file.close();
+		}
+		catch(IOException ex) {
+			
+		}
+		return teacher;
+	}
+	
+	public static Vector<ORManager> orManagerReader(String path) throws ClassNotFoundException{
+		Vector<ORManager> orManager = null;
+		try {
+			FileInputStream file = new FileInputStream(path);
+			ObjectInputStream in = new ObjectInputStream(file);
+			orManager = (Vector<ORManager>) in.readObject();
+			in.close();
+			file.close();
+		}
+		catch(IOException ex) {
+			
+		}
+		return orManager;
+	}
+	
+	public static Vector<DepartmentManager> departmentManagerReader(String path) throws ClassNotFoundException{
+		Vector<DepartmentManager> departmentManager = null;
+		try {
+			FileInputStream file = new FileInputStream(path);
+			ObjectInputStream in = new ObjectInputStream(file);
+			departmentManager = (Vector<DepartmentManager>) in.readObject();
+			in.close();
+			file.close();
+		}
+		catch(IOException ex) {
+			
+		}
+		return departmentManager;
+	}
+	public static Vector<Executor> executorReader(String path) throws ClassNotFoundException{
+		Vector<Executor> executor = null;
+		try {
+			FileInputStream file = new FileInputStream(path);
+			ObjectInputStream in = new ObjectInputStream(file);
+			executor = (Vector<Executor>) in.readObject();
+			in.close();
+			file.close();
+		}
+		catch(IOException ex) {
+			
+		}
+		return executor;
+	}
+	public static Vector<Course> courseReader(String path) throws ClassNotFoundException{
+		Vector<Course> course = null;
+		try {
+			FileInputStream file = new FileInputStream(path);
+			ObjectInputStream in = new ObjectInputStream(file);
+			course = (Vector<Course>) in.readObject();
+			in.close();
+			file.close();
+		}
+		catch(IOException ex) {
+			
+		}
+		return course;
+	}
+	
+	
 }

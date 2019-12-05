@@ -1,8 +1,9 @@
 package Intranet;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-public class Controller {
+public class Controller implements Serializable{
 	private Mode mode;
 	private static Admin admin;
 	private static User user;
@@ -13,10 +14,12 @@ public class Controller {
 	private static Executor executor;
 	//single Scanner
 	private static final Scanner sc = new Scanner(System.in);
-	
+	{
+		Database.loadData();
+	}
 	//Start of the system
+	
 	public void begin() throws Throwable {
-		//Database.start();
 		// process of choosing mode for system
 		int modeForSystem = 0;
 		while(modeForSystem!=1 && modeForSystem != 2) {
@@ -29,9 +32,9 @@ public class Controller {
 			System.out.println("Password: ");
 			String password = sc.next();
 			switch(modeForSystem) {
-			/*case 1:
+			case 1:
 				enterLikeUser(username, password);
-				break;*/
+				break;
 			case 2:
 				enterLikeAdmin(username, password);
 				break;
@@ -89,7 +92,6 @@ public class Controller {
 								}
 							}
 							break;
-							// ошибка пошла, пока остановился
 					case 2: int selecterModeForRemoveUsers = 0;
 							while(selecterModeForRemoveUsers!=6) {
 								System.out.println("Choose one of the five");
@@ -108,14 +110,57 @@ public class Controller {
 							break;
 					case 4: System.out.println(admin.seeLogFiles());
 							break;
-					case 5: System.exit(0);
+					case 5: Database.saveData();
+							System.exit(0);
 				}
 			}
 			
 		}
 	}
 	private static void enterLikeUser(String username, String password) {
-		
+		Vector<User> vectorOfAllUsers = new Vector<>();
+		vectorOfAllUsers.addAll(Database.vectorOfStudent);
+		vectorOfAllUsers.addAll(Database.vectorOfDepartmentManager);
+		vectorOfAllUsers.addAll(Database.vectorOfTeacher);
+		vectorOfAllUsers.addAll(Database.vectorOfOrManager);
+		vectorOfAllUsers.addAll(Database.vectorOfExecutor);
+		boolean found = false;
+		for(User u : vectorOfAllUsers) {
+			if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
+				user = u;
+				found = true;
+			}
+		}
+		while(!found) {
+			System.out.println("Wrong username or password, please, try again");
+			System.out.println("Username: ");
+			String usernameForMistake = sc.next();
+			System.out.println("Password: ");
+			String passwordForMistake = sc.next();
+			for(User u : vectorOfAllUsers) {
+				if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
+					user = u;
+					found = true;
+				}
+			}
+		}
+		switch(user.getClass().toString().split(" ")[1]) {
+		case "Student":
+			EnterUser.sessionStudent(user);
+			break;
+		case "Teacher":
+			EnterUser.sessionTeacher(user);
+			break;
+		case "Departmentmanager":
+			EnterUser.sessionDepartmentManager(user);
+			break;
+		case "Ormanager":
+			EnterUser.sessionOrManager(user);
+			break;
+		case "Executor":
+			EnterUser.sessionExecutor(user);
+			break;
+		}
 	}
 	// converter from string to gender
 	// works 100%

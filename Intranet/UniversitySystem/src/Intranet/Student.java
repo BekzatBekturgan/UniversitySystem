@@ -22,7 +22,8 @@ public class Student extends User{
 	public boolean registerForCourse() {
 		
 	}
-	public String viewCourseFiles(Course Course) {
+	
+	public String viewCourseFiles(String courseName) {
 		
 	}
 	@Override

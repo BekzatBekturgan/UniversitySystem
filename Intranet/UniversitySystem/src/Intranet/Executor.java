@@ -26,11 +26,11 @@ public class Executor extends Employee{
 	}
 	// view new orders and accept/reject 
 	// TO DO
-	public String viewNewOrder() {
+	/*public String viewNewOrder() {
 		String order = newOrders.get(i);
 		return order;
 	}
-	
+	*/
 	// view of accepted orders
 	public String viewAcceptedOrders() {
 		String view = null;

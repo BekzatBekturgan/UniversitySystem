@@ -1,7 +1,8 @@
 package Intranet;
+import java.io.Serializable;
 import java.util.*;
 
-public class Admin {
+public class Admin implements Serializable{
 	private String username;
 	private String password;
 	private static final String adminPath = "C:\\Users\\Bekzat Bekturgan\\Desktop\\Intranet\\UniversitySystem\\adminPath.txt"; // логин, пароль для аккаунта админ
