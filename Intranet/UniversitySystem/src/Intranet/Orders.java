@@ -28,5 +28,11 @@ public class Orders {
 	public void setSendedDate(Date sendedDate) {
 		this.sendedDate = sendedDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Orders [problemDescription=" + problemDescription + ", sendedDate=" + sendedDate + "]";
+	}
+	
 	
 }

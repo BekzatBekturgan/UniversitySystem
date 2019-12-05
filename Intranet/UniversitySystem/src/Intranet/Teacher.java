@@ -30,7 +30,6 @@ public class Teacher extends Employee{
 		}
 		return false;
 	}
-	
 	// show all courses that have in university system DONE*****
 	public Vector<Course> viewCourses(){
 		return Database.vectorOfCourses;
@@ -40,21 +39,21 @@ public class Teacher extends Employee{
 		return teacherCourses;
 	}
 	// show list of students in one course
-	public ArrayList<Student> showStudents(Course course){
+	public ArrayList<Student> showStudents(String courseName){
 		ArrayList<Student> listOfStudents = null;
 		for(Course c : teacherCourses) {
-			if(c.equals(course)) {
+			if(c.getName().equals(courseName)) {
 				listOfStudents = c.getListStudents();
 			}
 		}
 		return listOfStudents;
 	}
 	// DONE WITHOUT EXCEPTIONS******************
-	public boolean putMarks(Course course, Student student, String attestation, double grade) {
+	public boolean putMarks(String courseName, String studentUsername, String attestation, double grade) {
 		for(Course c: teacherCourses) {
-			if(c.equals(course)) {
+			if(c.getName().equals(courseName)) {
 				for(Student s : c.getListStudents()) {
-					if(s.equals(student)) {
+					if(s.getUsername().equals(studentUsername)) {
 						if(attestation.equals("first")) {
 							s.getTranscript().getJournal().get(c).setFirstAttestation(grade);
 							return true;

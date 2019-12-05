@@ -9,9 +9,7 @@ public class Executor extends Employee{
 	private ArrayList<Orders> acceptedOrders;
 	private ArrayList<Orders> rejectedOrders;
 	private ArrayList<Orders> doneOrders;
-	
-	
-	
+
 	public Executor(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday) {
 		super(name, surname, gender, phoneNumber, email, birthday);
 		this.rate = 0;
@@ -24,48 +22,56 @@ public class Executor extends Employee{
 			return true;
 		}
 	}
-	// view new orders and accept/reject 
+	//view new orders and accept/reject 
 	// TO DO
-	/*public String viewNewOrder() {
-		String order = newOrders.get(i);
-		return order;
+	public ArrayList<Orders> viewNewOrder() {
+		getNewOrders();
+		return newOrders;
 	}
-	*/
-	// view of accepted orders
-	public String viewAcceptedOrders() {
-		String view = null;
-		for(Orders order : acceptedOrders) {
-			view+=order.getProblemDescription() + " " + order.getSendedDate() + '\n';
+	public boolean acceptOrder(String orderName) {
+		for(Orders order : newOrders) {
+			if(order.getProblemDescription().equals(orderName)) {
+				acceptedOrders.add(order);
+				newOrders.remove(order);
+				return true;
+			}
 		}
-		return view;
+		return false;
+	}
+	public boolean rejectOrder(String orderName) {
+		for(Orders order : newOrders) {
+			if(order.getProblemDescription().equals(orderName)) {
+				rejectedOrders.add(order);
+				newOrders.remove(order);
+				return true;
+			}
+		}
+		return false;
+	}
+	// view of accepted orders
+	public ArrayList<Orders> viewAcceptedOrders() {
+		return acceptedOrders;
 	}
 	// view of rejected orders
-	public String viewRejectedOrder() {
-		String view = null;
-		for(Orders order : rejectedOrders) {
-			view+=order.getProblemDescription() + " " + order.getSendedDate() + '\n';
-		}
-		return view;
+	public ArrayList<Orders> viewRejectedOrder() {
+		return rejectedOrders;
 	}
 	// do orders 
-	public boolean doOrder(String order) {
-		for(Orders makeOrder : acceptedOrders) {
-			if(makeOrder.getProblemDescription().equals(order)) {
-				doneOrders.add(makeOrder);
+	public boolean doOrder(String orderName) {
+		for(Orders order : acceptedOrders) {
+			if(order.getProblemDescription().equals(orderName)) {
+				doneOrders.add(order);
 				this.rate++;
-				super.getOrders().remove(makeOrder);
+				acceptedOrders.remove(order);
+				super.getOrders().remove(order);
 				return true;
 			}
 		}
 		return false;
 	}
 	// view done orders
-	public String viewDoneOrders() {
-		String view = null;
-		for(Orders order : doneOrders) {
-			view+=order.getProblemDescription() + " " + order.getSendedDate() + '\n';
-		}
-		return view;
+	public ArrayList<Orders> viewDoneOrders() {
+		return doneOrders;
 	}
 	
 	

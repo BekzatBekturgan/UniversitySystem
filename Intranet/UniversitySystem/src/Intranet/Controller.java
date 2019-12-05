@@ -14,11 +14,11 @@ public class Controller implements Serializable{
 	private static Executor executor;
 	//single Scanner
 	private static final Scanner sc = new Scanner(System.in);
-	{
-		Database.loadData();
-	}
 	//Start of the system
 	
+	public Controller() {
+		Database.loadData();
+	}
 	public void begin() throws Throwable {
 		// process of choosing mode for system
 		int modeForSystem = 0;
@@ -40,6 +40,7 @@ public class Controller implements Serializable{
 				break;
 			}
 		}	
+		Database.saveData();
 	}
 	private static void enterLikeAdmin(String username, String password) throws Exception {
 		admin = new Admin();
@@ -76,6 +77,8 @@ public class Controller implements Serializable{
 								switch(selecterMode) {
 									case 1: student = (Student) enterData("student");
 											admin.addUsers(student, "student");
+											System.out.println(student.getUsername());
+											System.out.println(student.getPassword());
 											break;
 									case 2: teacher = (Teacher)enterData("teacher");
 											admin.addUsers(teacher, "teacher");
@@ -110,8 +113,6 @@ public class Controller implements Serializable{
 							break;
 					case 4: System.out.println(admin.seeLogFiles());
 							break;
-					case 5: Database.saveData();
-							System.exit(0);
 				}
 			}
 			
@@ -119,6 +120,7 @@ public class Controller implements Serializable{
 	}
 	private static void enterLikeUser(String username, String password) {
 		Vector<User> vectorOfAllUsers = new Vector<>();
+		System.out.println(vectorOfAllUsers.size());
 		vectorOfAllUsers.addAll(Database.vectorOfStudent);
 		vectorOfAllUsers.addAll(Database.vectorOfDepartmentManager);
 		vectorOfAllUsers.addAll(Database.vectorOfTeacher);
@@ -128,6 +130,8 @@ public class Controller implements Serializable{
 		for(User u : vectorOfAllUsers) {
 			if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
 				user = u;
+				System.out.println(u.getUsername());
+				System.out.println(u.getPassword());
 				found = true;
 			}
 		}
@@ -138,7 +142,7 @@ public class Controller implements Serializable{
 			System.out.println("Password: ");
 			String passwordForMistake = sc.next();
 			for(User u : vectorOfAllUsers) {
-				if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
+				if(u.getUsername().equals(usernameForMistake) && u.getPassword().equals(passwordForMistake)) {
 					user = u;
 					found = true;
 				}

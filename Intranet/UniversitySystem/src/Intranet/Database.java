@@ -73,9 +73,8 @@ public class Database implements Serializable{
     private static void saveStudents() {
         try {
             ObjectOutputStream oot = new ObjectOutputStream(new FileOutputStream(STUDENTS));
-
+            
             oot.writeObject(vectorOfStudent);
-
             oot.flush();
             oot.close();
         }
@@ -124,7 +123,7 @@ public class Database implements Serializable{
     private static void saveOrManagers() {
         try {
             ObjectOutputStream oot = new ObjectOutputStream(new FileOutputStream(ORMANAGERS));
-
+            
             oot.writeObject(vectorOfOrManager);
 
             oot.flush();

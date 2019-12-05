@@ -1,8 +1,9 @@
 package Intranet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Course {
+public class Course implements Serializable{
 	private String name;
 	private String description;
 	private int amountOfCredits;
