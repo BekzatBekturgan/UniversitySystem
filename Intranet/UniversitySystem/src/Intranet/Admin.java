@@ -3,6 +3,10 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Admin implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private static final String adminPath = "C:\\Users\\Bekzat Bekturgan\\Desktop\\Intranet\\UniversitySystem\\adminPath.txt"; // логин, пароль для аккаунта админ
@@ -14,35 +18,35 @@ public class Admin implements Serializable{
 	public boolean addUsers(User user, String type){
 		if(type.equals("student")) {
 			Student student = (Student)user;
-			if(!Database.isUsernameExist(student.getUsername())) {
+			if(!Database.vectorOfStudent.contains(student)) {
 				Database.vectorOfStudent.add(student);
 				return true;
 			}
 		}
 		else if(type.equals("teacher")) {
 			Teacher teacher = (Teacher)user;
-			if(!Database.isUsernameExist(teacher.getUsername())) {
+			if(!Database.vectorOfTeacher.contains(teacher)) {
 				Database.vectorOfTeacher.add(teacher);
 				return true;
 			}
 		}
 		else if(type.equals("ormanager")) {
 			ORManager ormanager = (ORManager)user;
-			if(!Database.isUsernameExist(ormanager.getUsername())) {
+			if(!Database.vectorOfOrManager.contains(ormanager)) {
 				Database.vectorOfOrManager.add(ormanager);
 				return true;
 			}
 		}
 		else if(type.equals("departmentmanager")) {
 			DepartmentManager departmentManager = (DepartmentManager)user;
-			if(!Database.isUsernameExist(departmentManager.getUsername())) {
+			if(!Database.vectorOfDepartmentManager.contains(departmentManager)) {
 				Database.vectorOfDepartmentManager.add(departmentManager);
 				return true;
 			}
 		}
 		else if(type.equals("executor")) {
 			Executor executor = (Executor)user;
-			if(!Database.isUsernameExist(executor.getUsername())) {
+			if(!Database.vectorOfExecutor.contains(executor)) {
 				Database.vectorOfExecutor.add(executor);
 				return true;
 			}
@@ -53,35 +57,35 @@ public class Admin implements Serializable{
 	public boolean removeUsers(User user, String type) {
 		if(type.equals("student")) {
 			Student student = (Student)user;
-			if(Database.isUsernameExist(student.getUsername())) {
+			if(Database.vectorOfStudent.contains(student)) {
 				Database.vectorOfStudent.remove(student);
 				return true;
 			}
 		}
 		else if(type.equals("teacher")) {
 			Teacher teacher = (Teacher)user;
-			if(Database.isUsernameExist(teacher.getUsername())) {
+			if(Database.vectorOfTeacher.contains(teacher)) {
 				Database.vectorOfTeacher.remove(teacher);
 				return true;
 			}
 		}
 		else if(type.equals("ormanager")) {
 			ORManager ormanager = (ORManager)user;
-			if(Database.isUsernameExist(ormanager.getUsername())) {
+			if(Database.vectorOfOrManager.contains(ormanager)) {
 				Database.vectorOfOrManager.remove(ormanager);
 				return true;
 			}
 		}
 		else if(type.equals("departmentmanager")) {
 			DepartmentManager departmentManager = (DepartmentManager)user;
-			if(Database.isUsernameExist(departmentManager.getUsername())) {
+			if(Database.vectorOfDepartmentManager.contains(departmentManager)) {
 				Database.vectorOfDepartmentManager.remove(departmentManager);
 				return true;
 			}
 		}
 		else if(type.equals("executor")) {
 			Executor executor = (Executor)user;
-			if(Database.isUsernameExist(executor.getUsername())) {
+			if(Database.vectorOfExecutor.contains(executor)) {
 				Database.vectorOfExecutor.remove(executor);
 				return true;
 			}

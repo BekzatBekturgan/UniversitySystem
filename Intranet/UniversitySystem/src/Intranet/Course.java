@@ -4,18 +4,27 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Course implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String description;
 	private int amountOfCredits;
 	private String pressMark;
-	private ArrayList<Teacher> courseTeacher = new ArrayList<Teacher>();
-	private ArrayList<Student> listStudents = new ArrayList<Student>();
+	private ArrayList<Teacher> courseTeacher = new ArrayList<>();
+	private ArrayList<Student> listStudents = new ArrayList<>();
+	private Faculty facultyOfCourse;
+	
 	public Course(String name, String description, int amountOfCredits, String pressMark) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.amountOfCredits = amountOfCredits;
 		this.pressMark = pressMark;
+	}
+	public Faculty getFacultyOfCourse() {
+		return this.facultyOfCourse;
 	}
 	public String getName() {
 		return name;
@@ -53,7 +62,9 @@ public class Course implements Serializable{
 	public void setCourseTeacher(ArrayList<Teacher> courseTeacher) {
 		this.courseTeacher = courseTeacher;
 	}
-	
+	public String toString() {
+		return "Name: " + this.name + " " + "Amount of credits: " + this.amountOfCredits + " " + "Press mark: " + this.pressMark + " " + "Description: " + this.description;
+	}
 	
 	
 	

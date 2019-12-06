@@ -1,6 +1,8 @@
 package Intranet;
 
-public enum Mode {
+import java.io.Serializable;
+
+public enum Mode implements Serializable{
 	STUDENT,
 	TEACHER,
 	DEPARMENTMANAGER,

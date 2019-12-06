@@ -3,6 +3,10 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Student extends User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int yearOfStudy;
 	private int entranceYear;
 	private Faculty facultyOfStudent;
@@ -12,7 +16,6 @@ public class Student extends User implements Serializable{
 	public ArrayList<Course> expectedCourses = new ArrayList<Course>();
 	
 	
-	
 	public Student(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday,
 			int yearOfStudy, int entranceYear, Faculty facultyOfStudent) {
 		super(name, surname, gender, phoneNumber, email, birthday);
@@ -20,12 +23,31 @@ public class Student extends User implements Serializable{
 		this.entranceYear = entranceYear;
 		this.facultyOfStudent = facultyOfStudent;
 	}
-	public boolean registerForCourse() {
-		
+	public String viewCoursesForRegistration() {
+		String registrationCourses = null;
+		for(Course course : Database.vectorForRegister) {
+			if(course.getFacultyOfCourse().equals(this.facultyOfStudent))
+				registrationCourses += course.toString();
+		}
+		return registrationCourses;
 	}
-	
+	public boolean registorForCourses(String courseName) {
+		for(Course course : Database.vectorForRegister) {
+			if(course.getFacultyOfCourse().equals(this.facultyOfStudent)) {
+				expectedCourses.add(course);
+				return true;
+			}
+		}
+		return false;
+	}
 	public String viewCourseFiles(String courseName) {
-		
+		String courseFiles = null;
+		for(CourseFiles courseFile : Database.vectorOfCourseFiles) {
+			if(courseFile.getCourseName().equals(courseName)) {
+				courseFiles+=courseFile.toString() + '\n';
+			}
+		}
+		return courseFiles;
 	}
 	@Override
 	public String toString() {

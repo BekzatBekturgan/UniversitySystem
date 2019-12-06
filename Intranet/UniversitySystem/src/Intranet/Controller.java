@@ -4,6 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 public class Controller implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Mode mode;
 	private static Admin admin;
 	private static User user;
@@ -39,7 +43,7 @@ public class Controller implements Serializable{
 				enterLikeAdmin(username, password);
 				break;
 			}
-		}	
+		}
 		Database.saveData();
 	}
 	private static void enterLikeAdmin(String username, String password) throws Exception {
@@ -76,25 +80,33 @@ public class Controller implements Serializable{
 								selecterMode = sc.nextInt();// to this moment program works;
 								switch(selecterMode) {
 									case 1: student = (Student) enterData("student");
-											admin.addUsers(student, "student");
-											System.out.println(student.getUsername());
-											System.out.println(student.getPassword());
+											if(admin.addUsers(student, "student")) 
+												System.out.println("Student is added");
+											else System.out.println("error");
 											break;
 									case 2: teacher = (Teacher)enterData("teacher");
-											admin.addUsers(teacher, "teacher");
+											if(admin.addUsers(teacher, "teacher"))
+												System.out.println("Teacher is added");
 											break;
 									case 3: departmentManager = (DepartmentManager)enterData("departmentmanager");
-											admin.addUsers(departmentManager, "departmentmanager");
+											if(admin.addUsers(departmentManager, "departmentmanager"))
+												System.out.println("Department Manager is added");
+											else System.out.println("Error");
 											break;
 									case 4: orManager = (ORManager)enterData("ormanager");
-											admin.addUsers(orManager, "ormanager");
+											if(admin.addUsers(orManager, "ormanager"))
+												System.out.println("OR Manager is added");
+											else System.out.println("Error");
 											break;
 									case 5: executor = (Executor)enterData("executor");
-											admin.addUsers(executor, "executor");
+											if(admin.addUsers(executor, "executor"))
+												System.out.println("Executor is added");
+											else System.out.println("Error");
 											break;
 								}
 							}
 							break;
+							// TO DO
 					case 2: int selecterModeForRemoveUsers = 0;
 							while(selecterModeForRemoveUsers!=6) {
 								System.out.println("Choose one of the five");
@@ -105,6 +117,9 @@ public class Controller implements Serializable{
 								System.out.println("5. Remove executor");
 								System.out.println("6. Exit");
 								selecterMode = sc.nextInt();
+								switch(selecterModeForRemoveUsers) {
+								case 1: 
+								}
 							}
 							break;
 					case 3: for(int i = 0; i < admin.seeLogFiles().size(); i++) {
@@ -149,19 +164,19 @@ public class Controller implements Serializable{
 			}
 		}
 		switch(user.getClass().toString().split(" ")[1]) {
-		case "Student":
+		case "Intranet.Student":
 			EnterUser.sessionStudent(user);
 			break;
-		case "Teacher":
+		case "Intranet.Teacher":
 			EnterUser.sessionTeacher(user);
 			break;
-		case "Departmentmanager":
+		case "Intranet.Departmentmanager":
 			EnterUser.sessionDepartmentManager(user);
 			break;
-		case "Ormanager":
+		case "Intranet.Ormanager":
 			EnterUser.sessionOrManager(user);
 			break;
-		case "Executor":
+		case "Intranet.Executor":
 			EnterUser.sessionExecutor(user);
 			break;
 		}

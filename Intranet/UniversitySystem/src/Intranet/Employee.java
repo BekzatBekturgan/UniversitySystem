@@ -1,11 +1,16 @@
 package Intranet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
-public abstract class Employee extends User implements SearchStudents{
-	private ArrayList<Orders> orders = new ArrayList<Orders>();
+public abstract class Employee extends User implements SearchStudents, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Orders> orders = new ArrayList<Orders>();
 	
 	public Employee(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday) {
 		super(name, surname, gender, phoneNumber, email, birthday);
@@ -75,6 +80,11 @@ public abstract class Employee extends User implements SearchStudents{
 		return true;
 	}
 	
-	
+	public static ArrayList<Orders> getOrdersArrayList(){
+		return orders;
+	}
+	public static void setOrdersArrayList(ArrayList<Orders> newOrders){
+		orders = newOrders;
+	}
 	
 }

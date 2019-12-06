@@ -1,7 +1,12 @@
 package Intranet;
+import java.io.Serializable;
 import java.util.*;
-public class Teacher extends Employee{
+public class Teacher extends Employee implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Course> teacherCourses = new ArrayList<Course>();
 	
 	public Teacher(String name, String surname, Gender gender, String phoneNumber, String email, Date birthday) {
@@ -47,6 +52,15 @@ public class Teacher extends Employee{
 			}
 		}
 		return listOfStudents;
+	}
+	public boolean addCourseFiles(String courseName, CourseFiles courseFiles) {
+		for(Course course : teacherCourses) {
+			if(course.getName().equals(courseName)) {
+				Database.vectorOfCourseFiles.add(courseFiles);
+				return true;
+			}
+		}
+		return false;
 	}
 	// DONE WITHOUT EXCEPTIONS******************
 	public boolean putMarks(String courseName, String studentUsername, String attestation, double grade) {

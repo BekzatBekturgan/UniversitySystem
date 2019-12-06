@@ -2,7 +2,11 @@ package Intranet;
 import java.io.*;
 import java.util.*;
 
-public abstract class Serialize {
+public abstract class Serialize implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static byte[] serialize(Vector<?> v) throws Exception {
 		byte[] stream = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

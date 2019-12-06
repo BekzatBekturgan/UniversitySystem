@@ -3,19 +3,24 @@ import java.io.Serializable;
 import java.util.*;
 
 public abstract class EnterUser implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Scanner sc = new Scanner(System.in);
 	public static void sessionStudent(User user) {
 		Student student = (Student)user;
 		System.out.println("You are logged as student!");
 		int selecter = 0;
-		while(selecter!=7) {
+		while(selecter!=8) {
 			System.out.println("1. Change password");
 			System.out.println("2. View transcript");
 			System.out.println("3. View journal");
 			System.out.println("4. View information about teacher for specific course");
 			System.out.println("5. View course files");
-			System.out.println("6. Regisration for courses");
-			System.out.println("7. Exit");
+			System.out.println("6. View courses for registration");
+			System.out.println("7. Registration for courses");
+			System.out.println("8. Exit");
 			selecter = sc.nextInt();
 			switch(selecter) {
 			case 1: System.out.println("Enter new password:");
@@ -31,7 +36,16 @@ public abstract class EnterUser implements Serializable{
 			case 5: System.out.println("Enter name of the course");
 					System.out.println(student.viewCourseFiles(sc.next()));
 					break;
-			case 6: student.registerForCourse();
+			case 6: System.out.println(student.viewCoursesForRegistration());
+					break;
+			case 7: for(Course course : Database.vectorForRegister) {
+						System.out.println(course.toString());
+						System.out.println("Would you register for this course? (Please, enter Yes or No)");
+						String desicion = sc.next().toLowerCase();
+						if(desicion.equals("yes"))
+							if(student.registorForCourses(course.getName()))
+								System.out.println("Course added for registration");
+					}
 					break;
 			}
 		}
@@ -40,7 +54,7 @@ public abstract class EnterUser implements Serializable{
 		Teacher teacher = (Teacher)user;
 		System.out.println("You are logged as teacher!");
 		int selecter = 0;
-		while(selecter != 9) {
+		while(selecter != 10) {
 			System.out.println("1. Change password");
 			System.out.println("2. View courses");
 			System.out.println("3. View own courses");
@@ -49,7 +63,8 @@ public abstract class EnterUser implements Serializable{
 			System.out.println("6. View students");
 			System.out.println("7. Search student");
 			System.out.println("8. Send order to executor");
-			System.out.println("9.Exit");
+			System.out.println("9. Add course files");
+			System.out.println("10. Exit");
 			selecter = sc.nextInt();
 			switch(selecter) {
 			case 1: System.out.println("Enter new password");
@@ -132,6 +147,15 @@ public abstract class EnterUser implements Serializable{
 					String order = sc.next();
 					if(teacher.sendOrderToExecutor(order)) System.out.println("Order is sended");
 					break;
+			case 9: System.out.println("Enter name of the course");
+					String courseNameForCourseFiles = sc.next();
+					System.out.println("Enter name of the course file");
+					String courseFileName = sc.next();
+					System.out.println("Load your file (in this program, please, write anything)");
+					String data = sc.next();
+					if(teacher.addCourseFiles(courseNameForCourseFiles, new CourseFiles(courseNameForCourseFiles, courseFileName, data)))
+						System.out.println("Course file is added");
+					break;
 			}
 		}
 	}
@@ -139,10 +163,15 @@ public abstract class EnterUser implements Serializable{
 		ORManager orManager = (ORManager)user;
 		System.out.println("You are logged as OR manager");
 		int selecter = 0;
-		while(selecter!=) {
+		while(selecter!=2) {
 			System.out.println("1. Change password");
-			System.out.println("2. ")
+			System.out.println("2. Exit");
 			selecter = sc.nextInt();
+			switch(selecter) {
+			case 1: System.out.println("Enter new password");
+					orManager.setPassword(sc.next());
+					break;
+			}
 		}
 		
 	}
@@ -150,12 +179,15 @@ public abstract class EnterUser implements Serializable{
 		DepartmentManager departmentManager = (DepartmentManager)user;
 		System.out.println("You are logged as Department Manager");
 		int selecter = 0;
-		while(selecter != 5) {
+		while(selecter != 8) {
 			System.out.println("1. Change password");
 			System.out.println("2. Give courses for registration");
 			System.out.println("3. Search students");
 			System.out.println("4. Send order to exectutor");
-			System.out.println("5. Exit");
+			System.out.println("5. Send news");
+			System.out.println("6. Show news");
+			System.out.println("7. Delete news");
+			System.out.println("8. Exit");
 			selecter = sc.nextInt();
 			switch(selecter) {
 			case 1: System.out.println("Enter new password");
@@ -163,7 +195,7 @@ public abstract class EnterUser implements Serializable{
 					break;
 			case 2: 
 			case 3:	int selecterForSearch = 0;
-			while(selecter!=6) {
+			while(selecter!=6) {		
 				System.out.println("1.Search by username");
 				System.out.println("2. Search by ID");
 				System.out.println("3. Search by name");
@@ -203,6 +235,21 @@ public abstract class EnterUser implements Serializable{
 				}
 			case 4: System.out.println("Enter your order to the executor");
 					departmentManager.sendOrderToExecutor(sc.next());
+					break;
+			case 5: System.out.println("Enter title of the news");
+					String title = sc.next();
+					System.out.println("Enter text of the news");
+					String text = sc.next();
+					if(departmentManager.addNews(title, text))
+						System.out.println("News is added");
+					break;
+			case 6:	System.out.println(departmentManager.showNews());
+					break;
+			case 7: System.out.println(departmentManager.showNews());
+					System.out.println("Enter title of the news which would you delete");
+					String titleOfNews = sc.next();
+					if(departmentManager.deleteNews(titleOfNews))
+						System.out.println("News is deleted");
 					break;
 			}
 		}

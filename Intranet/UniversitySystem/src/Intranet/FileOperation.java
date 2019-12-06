@@ -28,6 +28,10 @@ public abstract class FileOperation {
 		}
 		return logFiles;
 	}
+	/*
+	public static boolean writerLogFiles(User u) {
+		
+	}*/
 	public static boolean Writer(Vector v, String path) {
 		try {
 			FileOutputStream file = new FileOutputStream(path);

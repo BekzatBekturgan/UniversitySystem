@@ -1,9 +1,14 @@
 package Intranet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Executor extends Employee{
+public class Executor extends Employee implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int rate;
 	private ArrayList<Orders> newOrders = new ArrayList<Orders>();
 	private ArrayList<Orders> acceptedOrders;
@@ -22,8 +27,6 @@ public class Executor extends Employee{
 			return true;
 		}
 	}
-	//view new orders and accept/reject 
-	// TO DO
 	public ArrayList<Orders> viewNewOrder() {
 		getNewOrders();
 		return newOrders;
